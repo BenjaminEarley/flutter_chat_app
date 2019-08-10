@@ -2,6 +2,12 @@
 
 Chat app using Flutter and Firebase.
 
+## Screenshots
+
+Chat                          |  SignUp
+:----------------------------:|:-----------------------------:
+![](./screenshots/Chat.png)   | ![](./screenshots/signUp.png)
+
 ## Getting Started
 
 A few resources to get you started if this is your first Flutter project:
