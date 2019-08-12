@@ -56,6 +56,10 @@ class _SignInState extends State<SignIn> {
           child: const Text("Sign Up"),
           onPressed: () => screen.changeScreen(RegistrationScreen.SignUp),
         ),
+        FlatButton(
+          child: const Text("Forgot Password"),
+          onPressed: () => screen.changeScreen(RegistrationScreen.ForgotPassword),
+        ),
       ],
     );
   }

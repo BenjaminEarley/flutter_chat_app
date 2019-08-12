@@ -1,5 +1,6 @@
 import 'package:chat/blocs/auth/auth_bloc.dart';
 import 'package:chat/pages/chat.dart';
+import 'package:chat/pages/registration/ForgotPassword.dart';
 import 'package:chat/pages/registration/sign_in.dart';
 import 'package:chat/pages/registration/sign_up.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +35,23 @@ class RegistrationScreenPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screen = Provider.of<RegistrationScreenState>(context);
-    return (screen.get() == RegistrationScreen.SignIn) ? SignIn() : SignUp();
+    var screenWidget;
+    switch (screen.get()) {
+      case RegistrationScreen.SignIn:
+        screenWidget = SignIn();
+        break;
+      case RegistrationScreen.SignUp:
+        screenWidget = SignUp();
+        break;
+      case RegistrationScreen.ForgotPassword:
+        screenWidget = ForgotPassword();
+        break;
+    }
+    return screenWidget;
   }
 }
 
-enum RegistrationScreen { SignIn, SignUp }
+enum RegistrationScreen { SignIn, SignUp, ForgotPassword }
 
 class RegistrationScreenState with ChangeNotifier {
   RegistrationScreen screen;

@@ -35,24 +35,49 @@ class AuthBloc implements BlocBase {
     });
   }
 
-  Future signup(
-      {@required String email,
-      @required String name,
-      @required String password}) async {
+  Future forgotPassword({
+    @required String email,
+  }) async {
+    _authStateSubject.add(_authStateSubject.value.copy(isLoading: true));
+    var error;
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      error = e;
+    }
+    _authStateSubject.add(_authStateSubject.value.copy(isLoading: false));
+    if (error != null)
+      throw error;
+    else
+      return true;
+  }
+
+  Future signup({
+    @required String email,
+    @required String name,
+    @required String password,
+  }) async {
     _authStateSubject.add(_authStateSubject.value.copy(isLoading: true));
     var error;
     try {
       final auth = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      auth.user.updateProfile(UserUpdateInfo()..displayName = name);
       await _users.document().setData({'userId': auth.user.uid, 'name': name});
     } catch (e) {
       error = e;
     }
     _authStateSubject.add(_authStateSubject.value.copy(isLoading: false));
-    throw error;
+    if (error != null)
+      throw error;
+    else
+      return true;
   }
 
-  Future login({@required String email, @required String password}) async {
+  Future login({
+    @required String email,
+    @required String password,
+  }) async {
     _authStateSubject.add(_authStateSubject.value.copy(isLoading: true));
     var error;
     try {
@@ -61,7 +86,10 @@ class AuthBloc implements BlocBase {
       error = e;
     }
     _authStateSubject.add(_authStateSubject.value.copy(isLoading: false));
-    throw error;
+    if (error != null)
+      throw error;
+    else
+      return true;
   }
 
   Future isLoginValid() async {
