@@ -17,7 +17,7 @@ class Messages extends StatelessWidget {
         child: ListView.builder(
           itemCount: snapshot.data?.messages?.length ?? 0,
           reverse: true,
-          padding: new EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           itemBuilder: (BuildContext context, int index) {
             final message = snapshot.data.messages[index];
             switch (message.type) {

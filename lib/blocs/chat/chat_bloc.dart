@@ -31,12 +31,13 @@ class ChatBloc implements BlocBase {
         final type = userId == _authBloc.getUserId()
             ? MessageType.SENT
             : MessageType.RECEIVED;
+        final user = users.documents
+            .firstWhere((user) => user.data["userId"] == userId)
+            .data;
+
         return Message(
           body: document.data[_chatCollectionText] as String,
-          name: users.documents
-              .firstWhere((user) => user.data["userId"] == userId)
-              .data["name"]
-              .toString(),
+          name: user["name"],
           type: type,
         );
       }).toList();

@@ -11,10 +11,25 @@ class ProfileInfo extends StatelessWidget {
       stream: _profileBloc.stream,
       initialData: ProfileBloc.defaultState,
       builder: (context, snapshot) => Center(
-        child: Text(
-          snapshot?.data?.name,
-          style: Theme.of(context).textTheme.headline,
-        ),
+        child: snapshot.data.isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    radius: 96,
+                  ),
+                  Padding(padding: EdgeInsets.all(16.0)),
+                  Text(
+                    snapshot?.data?.name,
+                    style: Theme.of(context).textTheme.headline,
+                  ),
+                ],
+              ),
       ),
     );
   }

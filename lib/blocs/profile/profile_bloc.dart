@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat/blocs/common/bloc_base.dart';
 import 'package:chat/blocs/profile/profile_state.dart';
+import 'package:chat/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
 
