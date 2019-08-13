@@ -20,14 +20,12 @@ class AuthBloc implements BlocBase {
       if (user != null) {
         _authStateSubject.add(current.copy(
             id: user.uid,
-            name: user.displayName,
             email: user.email,
             isLoading: false,
             isLoggedIn: true));
       } else {
         _authStateSubject.add(current.copy(
             id: null,
-            name: null,
             email: null,
             isLoading: false,
             isLoggedIn: false));
@@ -62,7 +60,7 @@ class AuthBloc implements BlocBase {
     try {
       final auth = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      await _users.document().setData({'userId': auth.user.uid, 'name': name});
+      await _users.document(auth.user.uid).setData({'userId': auth.user.uid, 'name': name});
     } catch (e) {
       error = e;
     }
