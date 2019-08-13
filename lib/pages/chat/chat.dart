@@ -1,5 +1,6 @@
 import 'package:chat/blocs/auth/auth_bloc.dart';
 import 'package:chat/blocs/chat/chat_bloc.dart';
+import 'package:chat/main.dart';
 import 'package:chat/pages/chat/composer.dart';
 import 'package:chat/pages/chat/messages.dart';
 import 'package:chat/pages/profile/profile.dart';
@@ -15,6 +16,7 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ChatApp.firebaseMessaging.requestNotificationPermissions();
     final _authBloc = Provider.of<AuthBloc>(context);
     _authBloc.stream.listen((user) {
       if (user.isLoading) return;
@@ -71,6 +73,7 @@ List<Choice> choices = <Choice>[
   Choice(
     title: 'Profile',
     icon: Icons.account_circle,
-    action: (BuildContext context) => Navigator.of(context).pushNamed(profilePage),
+    action: (BuildContext context) =>
+        Navigator.of(context).pushNamed(profilePage),
   ),
 ];
