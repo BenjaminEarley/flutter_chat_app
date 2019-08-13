@@ -5,7 +5,6 @@ import 'package:chat/pages/registration/registration.dart';
 import 'package:chat/pages/splash.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,12 +22,7 @@ class ChatApp extends StatelessWidget {
       dispose: (context, bloc) => bloc.dispose(),
       child: MaterialApp(
         title: "Chat",
-        theme: defaultTargetPlatform == TargetPlatform.iOS
-            ? iOSTheme
-            : defaultTheme,
-        darkTheme: defaultTargetPlatform == TargetPlatform.iOS
-            ? iOSTheme
-            : defaultDarkTheme,
+        theme: defaultTheme,
         navigatorObservers: <NavigatorObserver>[ChatApp.observer],
         initialRoute: splashPage,
         routes: {

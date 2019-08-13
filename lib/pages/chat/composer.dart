@@ -30,48 +30,42 @@ class _ComposerState extends State<Composer> {
   Widget build(BuildContext context) {
     final bloc = Provider.of<ChatBloc>(context);
     return Container(
-      decoration: BoxDecoration(color: Theme.of(context).cardColor),
-      child: IconTheme(
-        data: IconThemeData(color: Theme.of(context).accentColor),
+      color: Theme.of(context).cardColor,
+      child: SafeArea(
         child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(children: <Widget>[
-              Flexible(
-                child: TextField(
-                  controller: _textController,
-                  onChanged: (String text) {
-                    setState(() {
-                      _isComposing = text.isNotEmpty;
-                    });
-                  },
-                  textInputAction: TextInputAction.send,
-                  onSubmitted: (text) => _handleSubmitted(bloc, text),
-                  decoration:
-                      InputDecoration.collapsed(hintText: "Send a message"),
+          decoration: BoxDecoration(color: Theme.of(context).cardColor),
+          child: IconTheme(
+            data: IconThemeData(color: Theme.of(context).accentColor),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    controller: _textController,
+                    onChanged: (String text) {
+                      setState(() {
+                        _isComposing = text.isNotEmpty;
+                      });
+                    },
+                    textInputAction: TextInputAction.send,
+                    onSubmitted: (text) => _handleSubmitted(bloc, text),
+                    decoration:
+                        InputDecoration.collapsed(hintText: "Send a message"),
+                  ),
                 ),
-              ),
-              Container(
+                Container(
                   margin: EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Theme.of(context).platform == TargetPlatform.iOS
-                      ? CupertinoButton(
-                          child: Text("Send"),
-                          onPressed: _isComposing
-                              ? () =>
-                                  _handleSubmitted(bloc, _textController.text)
-                              : null,
-                        )
-                      : IconButton(
-                          icon: Icon(Icons.send),
-                          onPressed: _isComposing
-                              ? () =>
-                                  _handleSubmitted(bloc, _textController.text)
-                              : null,
-                        )),
-            ]),
-            decoration: Theme.of(context).platform == TargetPlatform.iOS
-                ? BoxDecoration(
-                    border: Border(top: BorderSide(color: Colors.grey[200])))
-                : null),
+                  child: IconButton(
+                    icon: Icon(Icons.send),
+                    onPressed: _isComposing
+                        ? () => _handleSubmitted(bloc, _textController.text)
+                        : null,
+                  ),
+                ),
+              ]),
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -12,12 +12,9 @@ class ProfileInfo extends StatelessWidget {
       initialData: ProfileBloc.defaultState,
       builder: (context, snapshot) => Center(
         child: snapshot.data.isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
+            ? CircularProgressIndicator()
             : Column(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
                     backgroundColor: Theme.of(context).primaryColor,
