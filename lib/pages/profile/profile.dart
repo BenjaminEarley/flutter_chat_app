@@ -1,5 +1,6 @@
 import 'package:chat/blocs/auth/auth_bloc.dart';
-import 'package:chat/blocs/auth/auth_state.dart';
+import 'package:chat/blocs/profile/profile_bloc.dart';
+import 'package:chat/pages/profile/profile_info.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,21 +29,11 @@ class ProfilePage extends StatelessWidget {
           elevation:
               Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
         ),
-        body: StreamBuilder<AuthState>(
-            stream: _authBloc.stream,
-            initialData: AuthBloc.defaultState,
-            builder: (context, snapshot) {
-              if (snapshot.data.isLoading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return Center(
-                  child: Text(snapshot.data.name,
-                      style: Theme.of(context).textTheme.headline),
-                );
-              }
-            }));
+        body: Provider<ProfileBloc>(
+          builder: (BuildContext context) => ProfileBloc(_authBloc.getUserId()),
+          dispose: (context, value) => value.dispose(),
+          child: ProfileInfo(),
+        ));
   }
 }
 

@@ -14,9 +14,9 @@ class ChatBloc implements BlocBase {
       Firestore.instance.collection(_chatCollection);
   final CollectionReference _users =
       Firestore.instance.collection(_usersCollection);
-  final _counterStateSubject = BehaviorSubject.seeded(defaultState);
+  final _chatStateSubject = BehaviorSubject.seeded(defaultState);
   final PublishSubject<Null> _nextChatBlockSubject = PublishSubject();
-  Observable<ChatState> get stream => _counterStateSubject.stream.distinct();
+  Observable<ChatState> get stream => _chatStateSubject.stream.distinct();
   StreamSubscription _userChatStream;
   Observable<QuerySnapshot> _chatStream;
   int messagesLength = 0;
@@ -49,8 +49,8 @@ class ChatBloc implements BlocBase {
         return messages;
       }
     }).listen((chat) {
-      final current = _counterStateSubject.value;
-      _counterStateSubject.add(current.copy(
+      final current = _chatStateSubject.value;
+      _chatStateSubject.add(current.copy(
         messages: chat,
         isLoading: false,
       ));
@@ -82,7 +82,7 @@ class ChatBloc implements BlocBase {
 
   @override
   void dispose() {
-    _counterStateSubject?.close();
+    _chatStateSubject?.close();
     _nextChatBlockSubject?.close();
     _userChatStream?.cancel();
   }
