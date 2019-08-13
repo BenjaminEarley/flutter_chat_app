@@ -1,5 +1,5 @@
 import 'package:chat/blocs/auth/auth_bloc.dart';
-import 'package:chat/pages/chat.dart';
+import 'package:chat/pages/chat/chat.dart';
 import 'package:chat/pages/registration/ForgotPassword.dart';
 import 'package:chat/pages/registration/sign_in.dart';
 import 'package:chat/pages/registration/sign_up.dart';

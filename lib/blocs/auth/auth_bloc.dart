@@ -62,7 +62,6 @@ class AuthBloc implements BlocBase {
     try {
       final auth = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      auth.user.updateProfile(UserUpdateInfo()..displayName = name);
       await _users.document().setData({'userId': auth.user.uid, 'name': name});
     } catch (e) {
       error = e;

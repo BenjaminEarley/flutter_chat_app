@@ -1,6 +1,6 @@
 import 'package:chat/blocs/auth/auth_bloc.dart';
-import 'package:chat/pages/chat.dart';
-import 'package:chat/pages/registration.dart';
+import 'package:chat/pages/chat/chat.dart';
+import 'package:chat/pages/registration/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

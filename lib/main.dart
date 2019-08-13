@@ -1,6 +1,7 @@
 import 'package:chat/blocs/auth/auth_bloc.dart';
-import 'package:chat/pages/chat.dart';
-import 'package:chat/pages/registration.dart';
+import 'package:chat/pages/chat/chat.dart';
+import 'package:chat/pages/profile/profile.dart';
+import 'package:chat/pages/registration/registration.dart';
 import 'package:chat/pages/splash.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -33,7 +34,8 @@ class ChatApp extends StatelessWidget {
         routes: {
           splashPage: (context) => SplashPage(),
           registrationPage: (context) => RegistrationPage(),
-          chatPage: (context) => SafeArea(child: ChatPage()),
+          chatPage: (context) => ChatPage(),
+          profilePage: (context) => ProfilePage(),
         },
       ),
     );

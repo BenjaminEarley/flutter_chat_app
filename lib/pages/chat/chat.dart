@@ -2,7 +2,8 @@ import 'package:chat/blocs/auth/auth_bloc.dart';
 import 'package:chat/blocs/chat/chat_bloc.dart';
 import 'package:chat/pages/chat/composer.dart';
 import 'package:chat/pages/chat/messages.dart';
-import 'package:chat/pages/registration.dart';
+import 'package:chat/pages/profile/profile.dart';
+import 'package:chat/pages/registration/registration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,13 +12,6 @@ const chatPage = "chat";
 
 class ChatPage extends StatelessWidget {
   const ChatPage({Key key}) : super(key: key);
-
-  void _select(AuthBloc bloc, Choice choice) {
-    switch (choice) {
-      case Choice.Logout:
-        bloc.logout();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +30,10 @@ class ChatPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Chat"),
           actions: <Widget>[
-            PopupMenuButton(
-              onSelected: (select) => _select(_authBloc, select),
-              itemBuilder: (BuildContext context) {
-                return Choice.values.map((choice) {
-                  return PopupMenuItem<Choice>(
-                    value: choice,
-                    child: Text(_getTitle(choice)),
-                  );
-                }).toList();
+            IconButton(
+              icon: Icon(choices[0].icon),
+              onPressed: () {
+                choices[0].action(context);
               },
             ),
           ],
@@ -70,13 +59,18 @@ class Chat extends StatelessWidget {
   }
 }
 
-enum Choice { Logout }
+class Choice {
+  const Choice({this.title, this.icon, this.action});
 
-String _getTitle(Choice choice) {
-  switch (choice) {
-    case Choice.Logout:
-      return "Logout";
-    default:
-      return "";
-  }
+  final String title;
+  final IconData icon;
+  final Function action;
 }
+
+List<Choice> choices = <Choice>[
+  Choice(
+    title: 'Profile',
+    icon: Icons.account_circle,
+    action: (BuildContext context) => Navigator.of(context).pushNamed(profilePage),
+  ),
+];
