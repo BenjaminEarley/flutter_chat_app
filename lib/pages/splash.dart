@@ -10,14 +10,14 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _authBloc = Provider.of<AuthBloc>(context);
-    _authBloc.stream.listen((user) {
+    _authBloc.stream.listen((user) async {
       if (user.isLoading) return;
       if (user.isLoggedIn) {
         Navigator.of(context)
             .pushNamedAndRemoveUntil(chatPage, (Route<dynamic> route) => false);
       } else {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(registrationPage, (Route<dynamic> route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            registrationPage, (Route<dynamic> route) => false);
       }
     });
     return const Scaffold(

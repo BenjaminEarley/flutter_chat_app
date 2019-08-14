@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:chat/blocs/auth/auth_state.dart';
 import 'package:chat/blocs/common/bloc_base.dart';
+import 'package:chat/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -23,12 +25,11 @@ class AuthBloc implements BlocBase {
             email: user.email,
             isLoading: false,
             isLoggedIn: true));
+        saveDeviceToken(user.uid);
       } else {
         _authStateSubject.add(current.copy(
-            id: null,
-            email: null,
-            isLoading: false,
-            isLoggedIn: false));
+            id: null, email: null, isLoading: false, isLoggedIn: false));
+        FirebaseMessaging().deleteInstanceID();
       }
     });
   }
@@ -60,7 +61,9 @@ class AuthBloc implements BlocBase {
     try {
       final auth = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      await _users.document(auth.user.uid).setData({'userId': auth.user.uid, 'name': name});
+      await _users
+          .document(auth.user.uid)
+          .setData({'userId': auth.user.uid, 'name': name});
     } catch (e) {
       error = e;
     }

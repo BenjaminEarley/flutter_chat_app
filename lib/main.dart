@@ -5,14 +5,12 @@ import 'package:chat/pages/registration/registration.dart';
 import 'package:chat/pages/splash.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(ChatApp());
 
 class ChatApp extends StatelessWidget {
-  static FirebaseMessaging firebaseMessaging = FirebaseMessaging();
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
