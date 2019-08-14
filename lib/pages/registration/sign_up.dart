@@ -12,11 +12,11 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _emailFocus = FocusNode();
   final FocusNode _nameFocus = FocusNode();
+  final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
 
   @override
@@ -34,21 +34,22 @@ class _SignUpState extends State<SignUp> {
         children: <Widget>[
           ...logo,
           TextField(
-            controller: _emailController,
-            focusNode: _emailFocus,
+            controller: _nameController,
+            focusNode: _nameFocus,
+            textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.next,
-            onSubmitted: (text) => _nameFocus.requestFocus(),
-            decoration: InputDecoration(hintText: "Email"),
+            onSubmitted: (text) => _emailFocus.requestFocus(),
+            decoration: InputDecoration(hintText: "Name"),
           ),
           Padding(
             padding: EdgeInsets.all(8.0),
           ),
           TextField(
-            controller: _nameController,
-            focusNode: _nameFocus,
+            controller: _emailController,
+            focusNode: _emailFocus,
             textInputAction: TextInputAction.next,
             onSubmitted: (text) => _passwordFocus.requestFocus(),
-            decoration: InputDecoration(hintText: "Name"),
+            decoration: InputDecoration(hintText: "Email"),
           ),
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -79,20 +80,20 @@ class _SignUpState extends State<SignUp> {
   }
 
   Future _onSignup(AuthBloc bloc) async {
-    final email = _emailController.value.text;
     final name = _nameController.value.text;
+    final email = _emailController.value.text;
     final password = _passwordController.value.text;
 
     FocusNode focus;
     String errorMessage;
 
-    if (password.length < 6) {
-      focus = _passwordFocus;
-      errorMessage = "Password Too Short";
-    }
     if (name.isEmpty) {
       focus = _emailFocus;
       errorMessage = "Name Is Required";
+    }
+    if (password.length < 6) {
+      focus = _passwordFocus;
+      errorMessage = "Password Too Short";
     }
     if (!isValidEmail(email)) {
       focus = _emailFocus;

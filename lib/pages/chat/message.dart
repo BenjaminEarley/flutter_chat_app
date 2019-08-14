@@ -24,33 +24,34 @@ class ReceivedMessage extends StatelessWidget {
                 backgroundColor: Theme.of(context).primaryColor,
               ),
             ),
-            Expanded(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        message.name,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 5.0),
-                        child: Text(message.body),
-                      ),
-                    ],
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 7.0),
+                    child: Text(
+                      message.name,
+                      style: Theme.of(context).textTheme.caption,
+                    ),
                   ),
-                ),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: .5,
-                        spreadRadius: 1.0,
-                        color: Colors.black.withOpacity(.12))
-                  ],
-                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(message.body),
+                    ),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: .5,
+                            spreadRadius: 1.0,
+                            color: Colors.black.withOpacity(.12))
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
