@@ -24,3 +24,9 @@ samples, guidance on mobile development, and a full API reference.
 You will need to add your own Google Services files for iOS and Android:
 
 - [Docs: Google Services Setup](https://firebase.google.com/docs/flutter/setup)
+
+For Android, you will need to add `android/key.properties` for signing
+
+- [Flutter: Signing the Android App](https://flutter.dev/docs/deployment/android#signing-the-app)
+
+For iOS, if the first build fails, try `brew upgrade` to ensure required tools are up to date.
